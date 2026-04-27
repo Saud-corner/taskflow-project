@@ -1,0 +1,133 @@
+:root {
+    --primary: #2563eb;
+    --bg-color: #f8fafc;
+    --text-main: #0f172a;
+    --card-bg: #ffffff;
+    --border-radius: 8px;
+}
+
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: system-ui, -apple-system, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* Layout principal con Flexbox */
+main {
+    display: flex;
+    gap: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+    width: 100%;
+    /* Permite que los elementos se muevan hacia abajo si no caben */
+    flex-wrap: wrap; 
+}
+
+/* Sección de formulario y lista */
+#form-section, #list-section {
+    flex: 1;
+    min-width: 300px;
+    width: 100%;
+}
+
+/* Estilos del formulario y tarjetas */
+form {
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px; /* Letra legible, mínimo 16px */
+    margin: 10px 0;
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+}
+
+button {
+    background-color: var(--primary);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+button:hover, button:focus {
+    background-color: #1d4ed8;
+}
+
+/* Lista de Tareas */
+ul {
+    list-style: none;
+}
+
+li {
+    background: var(--card-bg);
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+li.completed span {
+    text-decoration: line-through;
+    color: #94a3b8;
+}
+
+.delete-btn {
+    background-color: #ef4444;
+    padding: 5px 10px;
+    font-size: 14px;
+}
+
+.delete-btn:hover {
+    background-color: #dc2626;
+}
+
+/* Panel de estadísticas */
+aside {
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    width: 250px;
+    height: fit-content;
+}
+
+/* Media Query: Responsividad para móviles (Paso 5) */
+@media (max-width: 768px) {
+    main {
+        flex-direction: column;
+    }
+    aside {
+        /* En móvil, el panel ocupa todo el ancho y se va abajo */
+        width: 100%; 
+        order: 3; 
+    }
+}

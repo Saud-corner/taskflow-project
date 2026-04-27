@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskFlow</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class', // Habilitamos el modo oscuro por clase
+        }
+    </script>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 min-h-screen p-5 flex flex-col font-sans transition-colors duration-300">
+    
+    <header class="text-center mb-8 relative max-w-5xl mx-auto w-full">
+        <h1 class="text-3xl font-bold">TaskFlow</h1>
+        <button id="theme-toggle" class="absolute right-0 top-0 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 p-2 rounded-md transition-colors">
+            🌓 Modo
+        </button>
+    </header>
+
+    <main class="flex flex-col md:flex-row gap-6 max-w-5xl mx-auto w-full">
+        
+        <div class="flex-1 w-full flex flex-col gap-5">
+            
+            <section id="form-section" class="bg-white dark:bg-slate-800 p-5 rounded-lg shadow-sm">
+                <form id="task-form" class="flex flex-col">
+                    <label for="task-input" class="mb-2 font-medium">Añadir nueva tarea:</label>
+                    <input type="text" id="task-input" placeholder="Ej. Comprar leche" required 
+                           class="w-full p-2 mb-3 border border-slate-300 dark:border-slate-600 rounded bg-transparent dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded transition-colors">Añadir</button>
+                </form>
+            </section>
+
+            <section id="controls-section" class="flex flex-wrap gap-3">
+                <input type="text" id="search-input" placeholder="Buscar tarea..." 
+                       class="flex-1 min-w-[200px] p-2 border border-slate-300 dark:border-slate-600 rounded bg-white dark:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                
+                <select id="filter-select" class="p-2 border border-slate-300 dark:border-slate-600 rounded bg-white dark:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option value="all">Todas</option>
+                    <option value="pending">Pendientes</option>
+                    <option value="completed">Completadas</option>
+                </select>
+                
+                <button id="mark-all-btn" class="bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 px-4 py-2 rounded transition-colors">Completar todas</button>
+                <button id="delete-completed-btn" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded transition-colors">Borrar completadas</button>
+            </section>
+
+            <section id="list-section">
+                <ul id="task-list" class="flex flex-col gap-3">
+                    </ul>
+            </section>
+        </div>
+
+        <aside id="stats-panel" class="bg-white dark:bg-slate-800 p-5 rounded-lg shadow-sm w-full md:w-64 h-fit order-first md:order-last">
+            <h2 class="text-xl font-bold mb-4 border-b pb-2 border-slate-200 dark:border-slate-700">Estadísticas</h2>
+            <div class="flex flex-col gap-2">
+                <p class="flex justify-between"><span>Total:</span> <span id="stat-total" class="font-bold">0</span></p>
+                <p class="flex justify-between"><span>Completadas:</span> <span id="stat-completed" class="font-bold text-green-600 dark:text-green-400">0</span></p>
+                <p class="flex justify-between"><span>Pendientes:</span> <span id="stat-pending" class="font-bold text-orange-500">0</span></p>
+            </div>
+        </aside>
+
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>
