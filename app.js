@@ -23,11 +23,21 @@ themeToggleBtn.addEventListener('click', () => {
 
 let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
+/**
+ * Guarda las tareas en LocalStorage y actualiza las estadísticas
+ */
 function saveTasks() {
-    localStorage.setItem('tasks', JSON.stringify(tasks));
-    updateStats();
+    try {
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+        updateStats();
+    } catch (error) {
+        console.error("Error guardando en LocalStorage", error);
+    }
 }
 
+/**
+ * Calcula y muestra el total de tareas pendientes y completadas
+ */
 function updateStats() {
     const total = tasks.length;
     const completed = tasks.filter(task => task.completed).length;
@@ -36,6 +46,9 @@ function updateStats() {
     statPending.textContent = total - completed;
 }
 
+/**
+ * Renderiza la lista de tareas aplicando los filtros y búsqueda
+ */
 function renderTasks() {
     taskList.innerHTML = ''; 
     const searchTerm = searchInput.value.toLowerCase();
@@ -51,9 +64,8 @@ function renderTasks() {
 
     filteredTasks.forEach(task => {
         const li = document.createElement('li');
-        li.className = "bg-white dark:bg-slate-800 p-4 rounded-lg shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-md"; // Animación extra suave al pasar el ratón
+        li.className = "bg-white dark:bg-slate-800 p-4 rounded-lg shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-md"; 
         
-        // Colores para las prioridades
         let priorityColor = "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200";
         if (task.priority === 'media') priorityColor = "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200";
         if (task.priority === 'alta') priorityColor = "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200";
@@ -77,13 +89,28 @@ function renderTasks() {
     updateStats();
 }
 
+/**
+ * Añade una nueva tarea desde el formulario
+ * @param {Event} e 
+ */
 function addTask(e) {
     e.preventDefault();
     const title = taskInput.value.trim();
     const priority = taskPriority.value; 
-    if (!title) return;
     
-    tasks.push({ id: Date.now(), title, priority, completed: false, createdAt: new Date() });
+    if (!title || title.length < 3) {
+        alert("Por favor, introduce una tarea de al menos 3 caracteres.");
+        return;
+    }
+    
+    tasks.push({ 
+        id: Date.now(), 
+        title, 
+        priority, 
+        completed: false, 
+        createdAt: new Date().toISOString() 
+    });
+    
     saveTasks();
     renderTasks();
     taskForm.reset();
